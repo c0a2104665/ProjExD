@@ -1,10 +1,10 @@
-import string          
+import string                
 import random
 import time
 
-tray = 5   
-all = 10   
-mai = 2    
+tray = 5   #実行回数
+all = 10   #アルファベットの数
+mai = 2    #欠損の数
 
 s = random.sample(string.ascii_lowercase[:all],k = all)
 
