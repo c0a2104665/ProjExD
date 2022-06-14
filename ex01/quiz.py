@@ -10,7 +10,7 @@ key,value = random.choice(list(quiz.items()))
 print(key,value["問題文"])
 print("選択",end="")
 for i in range(len(value["選択"])):
-    print(f"{i+1}."{value["選択"][i]}" ",end = '')
+    print(f"{i+1}.{value["選択"][i]},end = ''")
 
 print("")
 
