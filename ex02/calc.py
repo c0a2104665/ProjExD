@@ -11,28 +11,28 @@ def collback(btn):
 def button_click(event):
     btn = event.widget
     num = btn["text"]#クリックされた文字
-    if num == "=":
+    if num == "=":   #"="が押された場合の処理
         eqn = entry.get()
-        sum = eval(eqn)
-        entry.delete(0,tk.END)
+        sum = eval(eqn)   #演算を行った値を返す
+        entry.delete(0,tk.END)  #入力されていた値をdeleteする
         entry.insert(tk.END,f"{sum}")
         print(sum)
 
-    elif num == "AC":
+    elif num == "AC":  #"AC"が押された場合の処理
         entry.delete(0,tk.END)
         entry.insert(tk.END)
 
-    elif num == "÷":
-        entry.insert(tk.END,"/")
+    elif num == "÷":   #"÷"が押された場合の処理
+        entry.insert(tk.END,"/") #表示が分かりやすいようにひと手間加えた
 
     elif num == "×":
         entry.insert(tk.END,"*")
     
-    elif num == "^2":
+    elif num == "^2":   #"^2"が押された場合の処理
         eqn = entry.get()
         s = eval(eqn)*eval(eqn)
         entry.delete(0,tk.END)
-        entry.insert(tk.END,f"{s}")
+        entry.insert(tk.END,f"{s}") #表示が分かりやすいようにひと手間加えた
 
     else:
         #tkm.showwarning("",f"[{num}]ボタンが押されました")
@@ -47,7 +47,7 @@ if __name__ == "__main__":
     #root.geometry("300x500")
                      
 r,c = 1,0
-ata = [9,8,7,"×","^2",6,5,4,"÷","//",3,2,1,"+","-","",0,".","=","AC"]
+ata = [9,8,7,"×","^2",6,5,4,"÷","//",3,2,1,"+","-","",0,".","=","AC"] #ボタンの種類
 for i, num in enumerate([i for i in ata]):
     button = tk.Button(root,
                        text=f"{num}",
