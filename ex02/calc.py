@@ -29,7 +29,10 @@ def button_click(event):
         entry.insert(tk.END,"*")
     
     elif num == "^2":
-        entry.insert(tk.END,"**")
+        eqn = entry.get()
+        s = eval(eqn)*eval(eqn)
+        entry.delete(0,tk.END)
+        entry.insert(tk.END,f"{s}")
 
     else:
         #tkm.showwarning("",f"[{num}]ボタンが押されました")
