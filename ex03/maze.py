@@ -1,10 +1,11 @@
 import tkinter as tk
 import maze_maker as mm
+import tkinter.messagebox as tkm
 
-def key_down(event):
+def key_down(event): 
     global key
     key = event.keysym
-    print(f"{key}キーがおされました")
+    print(f"{key}キーが押されました")
     
 
 def key_up(event):
@@ -21,14 +22,7 @@ def main_proc():
             "Left" :[-1,0],
             "Right":[+1,0]
             }
-    """
-    if maze_bg[my+delta[key][1]][mx+delta[key][0]] == 0:
-        my, mx = my+delta[key][1],mx+delta[key][0]
-    if key == "Up" and maze_bg[my-1][mx == 0]: my -= 1
-    if key == "Down" and maze_bg[my-1][mx == 0]: my += 1
-    if key == "Left" and maze_bg[my-1][mx == 0]: mx -= 1
-    if key == "Right" and maze_bg[my-1][mx == 0]: mx -= 1
-    """
+    
     try:
         if maze_bg[my+delta[key][1]][mx+delta[key][0]] == 0:
             my, mx = my+delta[key][1],mx+delta[key][0]
@@ -38,6 +32,15 @@ def main_proc():
     cx, cy = mx*100+50, my*100+50
     canvas.coords("tori",cx,cy)
     root.after(100, main_proc)
+
+    
+def button_click(event):
+    btn = event.widget
+    txt = btn["text"]
+    if txt == "r":   #リセットキーを設定
+        
+        
+        tkm.showwarning(f"{txt}が押されたので、リセットされました！")
 
 if __name__ == "__main__":
     root = tk.Tk()
