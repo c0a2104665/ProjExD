@@ -1,6 +1,7 @@
 import pygame as pg
 import sys
 import random
+import tkinter.messagebox as tkm
 
 def main():
     clock = pg.time.Clock()
@@ -35,6 +36,7 @@ def main():
         screen_sfc.blit(bgimg_sfc,bgimg_rct)
         screen_sfc.blit(kkimg_sfc,kkimg_rct)
 
+        
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 return
@@ -62,8 +64,18 @@ def main():
         vx *= yoko
         vy *= tate
 
+        #こうかとんが爆弾に３回ぶつかったら、処理を終了する
+        count = []         #空リストを作成
         if kkimg_rct.colliderect(bmimg_rct):
-            return
+            count.append("1") #文字をリスト追記
+            print(count)
+            if len(count) == 3:#リストの数が３になったら処理を終了する
+                tkm.showwarning("ゲームオーバー")
+                return
+        
+
+        print(count)  
+                
 
         pg.display.update()
         clock.tick(1000)
