@@ -19,7 +19,7 @@ def main():
     kkimg_sfc = pg.transform.rotozoom(kkimg_sfc,0,2.0)
     kkimg_rct = kkimg_sfc.get_rect()
     kkimg_rct.center = 900,400
-    screen_sfc.blit(kkimg_sfc,kkimg_rct)
+    #screen_sfc.blit(kkimg_sfc,kkimg_rct)
 
     #練習Ⅴ：爆弾
     bmimg_sfc = pg.Surface((20,20)) #Surface
@@ -61,6 +61,10 @@ def main():
         yoko, tate = check_bound(bmimg_rct,screen_rct)
         vx *= yoko
         vy *= tate
+
+        if kkimg_rct.colliderect(bmimg_rct):
+            return
+
         pg.display.update()
         clock.tick(1000)
 
