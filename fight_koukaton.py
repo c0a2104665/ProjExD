@@ -87,8 +87,8 @@ class shot: #爆弾にぶつかる回数を設定
         if (move_bomb_x + 10 > tori_mx and move_bomb_x +10 < tori_mx) and\
             (move_bomb_y + 10 > tori_my and move_bomb_y + 10 < tori_my):
             if torilife > 0 : #torilifeが0以上の場合
-                tirilife = torilife -1
-            elif tirilife <= 0: #tirilifeが3~0の場合
+                torilife = torilife -1
+            elif torilife <= 0: #tirilifeが3~0の場合
                 button_click()
                 return
   
