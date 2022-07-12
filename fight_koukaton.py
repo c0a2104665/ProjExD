@@ -4,7 +4,6 @@ import random
 import tkinter as tk
 import tkinter.messagebox as tkm
 
-
 class Screen: #初期画面
     def __init__(self, title, wh, image):
         pg.display.set_caption(title)
@@ -12,11 +11,9 @@ class Screen: #初期画面
         self.rct = self.sfc.get_rect()         # Rect
         self.bgi_sfc = pg.image.load(image)    # Surface
         self.bgi_rct = self.bgi_sfc.get_rect() # Rect
-
     def blit(self):
         self.sfc.blit(self.bgi_sfc, self.bgi_rct)
     
-
 class Bird: #こうかとんを描画
     def __init__(self, image:str, size:float,xy):
         self.sfc = pg.image.load(image)    # Surface
@@ -25,7 +22,6 @@ class Bird: #こうかとんを描画
         self.rct.center = xy
         print(self.rct.center)
         
-
     def blit(self, scr:Screen):
         scr.sfc.blit(self.sfc,self.rct)
 
@@ -54,7 +50,6 @@ class Bird: #こうかとんを描画
                 self.rct.centerx -= 1
         self.blit(scr)
 
-
 class Bomb: #爆弾を描画
     def __init__(self,color,size,vxy,scr:Screen):
         self.sfc = pg.Surface((2*size, 2*size)) # Surface
@@ -68,11 +63,9 @@ class Bomb: #爆弾を描画
         tori_my = self.rct.centery
         #print(self.rct.centerx,self.rct.centery)
         
-
     def blit(self,scr:Screen):
         scr.sfc.blit(self.sfc,self.rct)
-
-    
+ 
     def update(self, scr: Screen):
         # 練習6
         self.rct.move_ip(self.vx, self.vy)
@@ -93,15 +86,11 @@ class shot: #爆弾にぶつかる回数を設定
         global move_bomb_x, move_bomb_y, tori_mx, tori_my,torilife,button_click
         if (move_bomb_x + 10 > tori_mx and move_bomb_x +10 < tori_mx) and\
             (move_bomb_y + 10 > tori_my and move_bomb_y + 10 < tori_my):
-
             if torilife > 0 : #torilifeが0以上の場合
                 tirilife = torilife -1
-
-
             elif tirilife <= 0: #tirilifeが3~0の場合
                 button_click()
                 return
-
   
 def main(): #爆弾とこうかとんの描画
     clock = pg.time.Clock()
@@ -125,7 +114,6 @@ def main(): #爆弾とこうかとんの描画
         pg.display.update()
         clock.tick(1000)
 
-
 # 練習7
 def check_bound(rct, scr_rct): #壁を作成
     '''
@@ -136,7 +124,6 @@ def check_bound(rct, scr_rct): #壁を作成
     if rct.left < scr_rct.left or scr_rct.right  < rct.right : yoko = -1 # 領域外
     if rct.top  < scr_rct.top  or scr_rct.bottom < rct.bottom: tate = -1 # 領域外
     return yoko, tate
-
 
 if __name__ == "__main__":
     pg.init()
