@@ -7,56 +7,52 @@ class Screen:
     def __init__(self, title, wh, image):
         pg.display.set_caption(title)
         self.sfc = pg.display.set_mode(wh) #Screen
-       
         self.rct = self.sfc.get_rect()            # Rect
         self.bgi_sfc = pg.image.load(image)    # Surface
         bgimg_rct = self.bgi_sfc.get_rect()              # Rect
-        self.bgi_sfc.blit(self.bgi_sfc, bgimg_rct)
-
-
+        
     def blit(self):
-        self.sfc.blit(self.bgi.sfc, self.bgi.rct)
+        self.sfc.blit(self.bgi_sfc, self.bgi_rct)
 
 class Bird:
-    def __init__(self, image, size,xy):
+    def __init__(self, image:str, size:float,xy):
         self.sfc = pg.image.load(image)    # Surface
         self.sfc = pg.transform.rotozoom(self.sfc, 0, size)  # Surface
         self.rct = self.sfc.get_rect()          # Rect
         self.rct.center = xy
         
 
-    def plit(self, scr):
-        scr.sfc.blind()
+    def blit(self, scr:Screen):
         scr.sfc.blit(self.sfc,self.rct)
 
-    def ipdate(self, scr: Screen):
-        :key_states = pg.key.get_pressed() # 辞書
-        if key_states[pg.K_UP]    == True: 
+    def update(self, scr: Screen):
+        key_states = pg.key.get_pressed() # 辞書
+        if key_states[pg.K_UP]: 
             self.rct.centery -= 1
-        if key_states[pg.K_DOWN]  == True: 
-            selfrct.centery += 1
-        if key_states[pg.K_LEFT]  == True: 
+        if key_states[pg.K_DOWN]: 
+            self.rct.centery += 1
+        if key_states[pg.K_LEFT]: 
             self.rct.centerx -= 1
-        if key_states[pg.K_RIGHT] == True: 
+        if key_states[pg.K_RIGHT]: 
             self.rct.centerx += 1
+        
 
 
 
         # 練習7
-        if check_bound(kkimg_rct, screen_rct) != (1, 1): # 領域外だったら
-            if key_states[pg.K_UP]    == True: 
-                kkimg_rct.centery += 1
-            if key_states[pg.K_DOWN]  == True: 
-                kkimg_rct.centery -= 1
-            if key_states[pg.K_LEFT]  == True: 
-                kkimg_rct.centerx += 1
-            if key_states[pg.K_RIGHT] == True: 
-                kkimg_rct.centerx -= 1
-        screen_sfc.blit(kkimg_sfc, kkimg_rct)
-        self.blit  
+        if check_bound(self.rct, scr.rct) != (1, 1): # 領域外だったら
+            if key_states[pg.K_UP]: 
+                self.rct.centery += 1
+            if key_states[pg.K_DOWN]: 
+                self.rct.centery -= 1
+            if key_states[pg.K_LEFT]: 
+                self.rct.centerx += 1
+            if key_states[pg.K_RIGHT]: 
+                self.rct.centerx -= 1
+        self.blit(scr)
 
 
-class Bom:
+class Bomb:
     def __init__(self,color,size,vxy,scr:Screen):
         self.sfc = pg.Surface((2*size, 2*size)) # Surface
         self.sfc.set_colorkey((0, 0, 0)) 
@@ -66,15 +62,20 @@ class Bom:
         self.rct.centery = random.randint(0, scr.rct.height)
         self.vx, self.vy = vxy        # 練習6
 
+    def blit(self,scr:Screen):
+        scr.sfc.blit(self.sfc,self.rct)
+
+    
     def update(self, scr:Screen):
 
         self.rct.move_ip(self.vx, self.vy)
         # 練習5
-        self.sfc.blit(bmimg_sfc, bmimg_rct)
         # 練習7
         yoko, tate = check_bound(self.rct, scr.rct)
         vx *= yoko
         vy *= tate
+        
+        self.blit(scr)
         
 
 
@@ -82,6 +83,25 @@ class Bom:
   
 def main():
     clock = pg.time.Clock()
+    scr = Screen("逃げろ！こうかとん", (1600, 900), "fig/pg_bg.jpg")
+    kkt = Bird("fig/6.png", 2.0, (900, 400))
+    bkd = Bomb((255,0,0), 10, (+1,+1), scr)
+
+    while True:
+        scr.blit()
+
+        # 練習2
+        for event in pg.event.get():
+            if event.type == pg.QUIT: return
+
+        kkt.update(scr)
+        bkd.update(scr)
+        if kkt.rct.colliderect(bkd.rct):
+            return
+
+        pg.display.update()
+        clock.tick(1000)
+
 
     # # 練習1：スクリーンと背景画像
     # pg.display.set_caption("逃げろ！こうかとん")
@@ -90,15 +110,15 @@ def main():
     # bgimg_sfc = pg.image.load("fig/pg_bg.jpg")    # Surface
     # bgimg_rct = bgimg_sfc.get_rect()              # Rect
     # screen_sfc.blit(bgimg_sfc, bgimg_rct)
-    Screen("寝下呂！こうかとん",166,900),"fig/pg_bg")
+    # Screen("寝下呂！こうかとん",166,900),"fig/pg_bg")
 
 
-    # 練習3：こうかとん
-    kkimg_sfc = pg.image.load("fig/6.png")    # Surface
-    kkimg_sfc = pg.transform.rotozoom(kkimg_sfc, 0, 2.0)  # Surface
-    kkimg_rct = kkimg_sfc.get_rect()          # Rect
-    kkimg_rct.center = 900, 400
-    Bird("fig/pnp, 2.0,(20")
+    # # 練習3：こうかとん
+    # kkimg_sfc = pg.image.load("fig/6.png")    # Surface
+    # kkimg_sfc = pg.transform.rotozoom(kkimg_sfc, 0, 2.0)  # Surface
+    # kkimg_rct = kkimg_sfc.get_rect()          # Rect
+    # kkimg_rct.center = 900, 400
+    # Bird("fig/pnp, 2.0,(20")
 
     # 練習5：爆弾
     # bmimg_sfc = pg.Surface((20, 20)) # Surface
@@ -108,14 +128,15 @@ def main():
     # bmimg_rct.centerx = random.randint(0, screen_rct.width)
     # bmimg_rct.centery = random.randint(0, screen_rct.height)
     # vx, vy = +1, +1 # 練習6
+    # bkd = Bom((255,0,0),10,(+1,+1), scr)
 
-    while True:
-        #screen_sfc.blit(bgimg_sfc, bgimg_rct)
-        scr.sfc.blit
+    # while True:
+    #     #screen_sfc.blit(bgimg_sfc, bgimg_rct)
+    #     scr.sfc.blit
 
-        # 練習2
-        for event in pg.event.get():
-            if event.type == pg.QUIT: return
+    #     # 練習2
+    #     for event in pg.event.get():
+    #         if event.type == pg.QUIT: return
 
         # 練習4
         # key_states = pg.key.get_pressed() # 辞書
@@ -139,30 +160,29 @@ def main():
         # yoko, tate = check_bound(bmimg_rct, screen_rct)
         # vx *= yoko
         # vy *= tate
+        # bkd.update(scr)
 
-        # 練習8
-        if kkimg_rct.colliderect(bmimg_rct): return 
+        # # 練習8
+        # if kkimg_rct.colliderect(bkd.rct): 
+        #     return 
 
-        pg.display.update()
-        clock.tick(1000)
+        # pg.display.update()
+        # clock.tick(1000)
 
 
 # 練習7
-def check_bound(self,rct, scr_rct) !=  (1,1):
+    def check_bound(rct, scr_rct):
+        '''
+        [1] rct: こうかとん or 爆弾のRect
+        [2] scr_rct: スクリーンのRect
+        '''
+        yoko, tate = +1, +1 # 領域内
+        if rct.left < scr_rct.left or scr_rct.right  < rct.right : yoko = -1 # 領域外
+        if rct.top  < scr_rct.top  or scr_rct.bottom < rct.bottom: tate = -1 # 領域外
+        return yoko, tate
 
 
-    '''
-    [1] rct: こうかとん or 爆弾のRect
-    [2] scr_rct: スクリーンのRect
-    '''
-    yoko, tate = +1, +1 # 領域内
-    if rct.left < scr_rct.left or scr_rct.right  < rct.right : yoko = -1 # 領域外
-    if rct.top  < scr_rct.top  or scr_rct.bottom < rct.bottom: tate = -1 # 領域外
-    return yoko, tate
-
-
-
-if __name__ == "__main__":
+    if __name__ == "__main__":
     pg.init()
     main()
     pg.quit()
