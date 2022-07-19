@@ -7,8 +7,9 @@
 - 印キーの左右を使って、boardを操作する
 ### 追加機能
 - 背景に好きな写真を描画する 
+- bordに使うための画像を決め、描画する
 ### ToDo
-- blockの描画
+- blockの描画まで終わらせることが出来ませんでした。
 ### 参考サイト
 - [ブロック崩しゲームの作り方] https://daeudaeu.com/tkinter-breakout/ 2022年7月19日
 - [シンプルなブロック崩し制作用の無料素材画像] https://sozaiyasan.jp/block-destruction001 2022年7月19日
