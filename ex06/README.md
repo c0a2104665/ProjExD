@@ -9,3 +9,6 @@
 - 背景に好きな写真を描画する 
 ### ToDo
 - blockの描画
+### 参考サイト
+- [ブロック崩しゲームの作り方] https://daeudaeu.com/tkinter-breakout/ 2022年7月19日
+- [シンプルなブロック崩し制作用の無料素材画像] https://sozaiyasan.jp/block-destruction001 2022年7月19日
